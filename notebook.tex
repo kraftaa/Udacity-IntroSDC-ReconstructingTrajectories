@@ -1,0 +1,641 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Reconstructing Trajectories}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{raw-input-data}{%
+\subsection{Raw Input Data}\label{raw-input-data}}
+
+The data you'll be working with has been preprocessed from CSVs that
+looks like this:
+
+\begin{longtable}[]{@{}cccc@{}}
+\toprule
+timestamp & displacement & yaw\_rate & acceleration\tabularnewline
+\midrule
+\endhead
+0.0 & 0 & 0.0 & 0.0\tabularnewline
+0.25 & 0.0 & 0.0 & 19.6\tabularnewline
+0.5 & 1.225 & 0.0 & 19.6\tabularnewline
+0.75 & 3.675 & 0.0 & 19.6\tabularnewline
+1.0 & 7.35 & 0.0 & 19.6\tabularnewline
+1.25 & 12.25 & 0.0 & 0.0\tabularnewline
+1.5 & 17.15 & -2.82901631903 & 0.0\tabularnewline
+1.75 & 22.05 & -2.82901631903 & 0.0\tabularnewline
+2.0 & 26.95 & -2.82901631903 & 0.0\tabularnewline
+2.25 & 31.85 & -2.82901631903 & 0.0\tabularnewline
+2.5 & 36.75 & -2.82901631903 & 0.0\tabularnewline
+2.75 & 41.65 & -2.82901631903 & 0.0\tabularnewline
+3.0 & 46.55 & -2.82901631903 & 0.0\tabularnewline
+3.25 & 51.45 & -2.82901631903 & 0.0\tabularnewline
+3.5 & 56.35 & -2.82901631903 & 0.0\tabularnewline
+\bottomrule
+\end{longtable}
+
+This data is currently saved in a file called
+\texttt{trajectory\_example.pickle}. It can be loaded using a helper
+function we've provided (demonstrated below):
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{k+kn}{from} \PY{n+nn}{helpers} \PY{k}{import} \PY{n}{process\PYZus{}data}
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        
+        \PY{n}{data\PYZus{}list} \PY{o}{=} \PY{n}{process\PYZus{}data}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{trajectory\PYZus{}example.pickle}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        
+        \PY{k}{for} \PY{n}{entry} \PY{o+ow}{in} \PY{n}{data\PYZus{}list}\PY{p}{:}
+            \PY{n+nb}{print}\PY{p}{(}\PY{n}{entry}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(0.0, 0, 0.0, 0.0)
+(0.25, 0.0, 0.0, 19.600000000000001)
+(0.5, 1.2250000000000001, 0.0, 19.600000000000001)
+(0.75, 3.6750000000000003, 0.0, 19.600000000000001)
+(1.0, 7.3500000000000005, 0.0, 19.600000000000001)
+(1.25, 12.25, 0.0, 0.0)
+(1.5, 17.149999999999999, -2.8290163190291664, 0.0)
+(1.75, 22.049999999999997, -2.8290163190291664, 0.0)
+(2.0, 26.949999999999996, -2.8290163190291664, 0.0)
+(2.25, 31.849999999999994, -2.8290163190291664, 0.0)
+(2.5, 36.749999999999993, -2.8290163190291664, 0.0)
+(2.75, 41.649999999999991, -2.8290163190291664, 0.0)
+(3.0, 46.54999999999999, -2.8290163190291664, 0.0)
+(3.25, 51.449999999999989, -2.8290163190291664, 0.0)
+(3.5, 56.349999999999987, -2.8290163190291664, 0.0)
+
+    \end{Verbatim}
+
+    as you can see, each entry in \texttt{data\_list} contains four fields.
+Those fields correspond to \texttt{timestamp} (seconds),
+\texttt{displacement} (meters), \texttt{yaw\_rate} (rads / sec), and
+\texttt{acceleration} (m/s/s).
+
+\hypertarget{the-point-of-this-project}{%
+\subsubsection{The Point of this
+Project!}\label{the-point-of-this-project}}
+
+\textbf{Data tells a story but you have to know how to find it!}
+
+Contained in the data above is all the information you need to
+reconstruct a fairly complex vehicle trajectory. After processing
+\textbf{this} exact data, it's possible to generate this plot of the
+vehicle's X and Y position:
+
+\includegraphics{https://d17h27t6h515a5.cloudfront.net/topher/2017/December/5a3044ac_example-trajectory/example-trajectory.png}
+
+as you can see, this vehicle first accelerates forwards and then turns
+right until it almost completes a full circle turn.
+
+\hypertarget{data-explained}{%
+\subsubsection{Data Explained}\label{data-explained}}
+
+\textbf{\texttt{timestamp}} - Timestamps are all measured in seconds.
+The time between successive timestamps (\(\Delta t\)) will always be the
+same \emph{within} a trajectory's data set (but not \emph{between} data
+sets).
+
+\textbf{\texttt{displacement}} - Displacement data from the odometer is
+in meters and gives the \textbf{total} distance traveled up to this
+point.
+
+\textbf{\texttt{yaw\_rate}} - Yaw rate is measured in radians per second
+with the convention that positive yaw corresponds to
+\emph{counter-clockwise} rotation.
+
+\textbf{\texttt{acceleration}} - Acceleration is measured in
+\(\frac{m/s}{s}\) and is always \textbf{in the direction of motion of
+the vehicle} (forward).
+
+\begin{quote}
+\textbf{NOTE} - you may not need to use all of this data when
+reconstructing vehicle trajectories.
+\end{quote}
+
+    \hypertarget{your-job}{%
+\subsection{Your Job}\label{your-job}}
+
+Your job is to complete the following functions, all of which take a
+processed \texttt{data\_list} (with \(N\) entries, each \(\Delta t\)
+apart) as input:
+
+\begin{itemize}
+\item
+  \texttt{get\_speeds} - returns a length \(N\) list where entry \(i\)
+  contains the speed (\(m/s\)) of the vehicle at
+  \(t = i \times \Delta t\)
+\item
+  \texttt{get\_headings} - returns a length \(N\) list where entry \(i\)
+  contains the heading (radians, \(0 \leq \theta < 2\pi\)) of the
+  vehicle at \(t = i \times \Delta t\)
+\item
+  \texttt{get\_x\_y} - returns a length \(N\) list where entry \(i\)
+  contains an \texttt{(x,\ y)} tuple corresponding to the \(x\) and
+  \(y\) coordinates (meters) of the vehicle at \(t = i \times \Delta t\)
+\item
+  \texttt{show\_x\_y} - generates an x vs.~y scatter plot of vehicle
+  positions.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{} I\PYZsq{}ve provided a solution file called solution.py}
+        \PY{c+c1}{\PYZsh{} You are STRONGLY encouraged to NOT look at the code}
+        \PY{c+c1}{\PYZsh{} until after you have solved this yourself.}
+        \PY{c+c1}{\PYZsh{}}
+        \PY{c+c1}{\PYZsh{} You SHOULD, however, feel free to USE the solution }
+        \PY{c+c1}{\PYZsh{} functions to help you understand what your code should}
+        \PY{c+c1}{\PYZsh{} be doing. For example...}
+        \PY{k+kn}{from} \PY{n+nn}{helpers} \PY{k}{import} \PY{n}{process\PYZus{}data}
+        \PY{k+kn}{import} \PY{n+nn}{solution}
+        
+        \PY{n}{data\PYZus{}list} \PY{o}{=} \PY{n}{process\PYZus{}data}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{trajectory\PYZus{}example.pickle}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{solution}\PY{o}{.}\PY{n}{show\PYZus{}x\PYZus{}y}\PY{p}{(}\PY{n}{data\PYZus{}list}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{} What about the other trajectories?}
+        
+        \PY{n}{three\PYZus{}quarter\PYZus{}turn\PYZus{}data} \PY{o}{=} \PY{n}{process\PYZus{}data}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{trajectory\PYZus{}1.pickle}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{solution}\PY{o}{.}\PY{n}{show\PYZus{}x\PYZus{}y}\PY{p}{(}\PY{n}{three\PYZus{}quarter\PYZus{}turn\PYZus{}data}\PY{p}{,} \PY{n}{increment}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_5_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{merge\PYZus{}data} \PY{o}{=} \PY{n}{process\PYZus{}data}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{trajectory\PYZus{}2.pickle}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{solution}\PY{o}{.}\PY{n}{show\PYZus{}x\PYZus{}y}\PY{p}{(}\PY{n}{merge\PYZus{}data}\PY{p}{,}\PY{n}{increment}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{parallel\PYZus{}park} \PY{o}{=} \PY{n}{process\PYZus{}data}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{trajectory\PYZus{}3.pickle}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{solution}\PY{o}{.}\PY{n}{show\PYZus{}x\PYZus{}y}\PY{p}{(}\PY{n}{parallel\PYZus{}park}\PY{p}{,}\PY{n}{increment}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_7_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \textbf{How do you make those cool arrows?!}
+
+I did a Google search for ``python plot grid of arrows'' and the second
+result led me to some
+\href{https://matplotlib.org/examples/pylab_examples/quiver_demo.html}{demonstration
+code} that was really helpful.
+
+    \hypertarget{testing-correctness}{%
+\subsection{Testing Correctness}\label{testing-correctness}}
+
+Testing code is provided at the bottom of this notebook. Note that only
+\texttt{get\_speeds}, \texttt{get\_x\_y}, and \texttt{get\_headings} are
+tested automatically. You will have to ``test'' your \texttt{show\_x\_y}
+function by manually comparing your plots to the expected plots.
+
+    \hypertarget{initial-vehicle-state}{%
+\subsubsection{Initial Vehicle State}\label{initial-vehicle-state}}
+
+The vehicle always begins with all state variables equal to zero. This
+means \texttt{x}, \texttt{y}, \texttt{theta} (heading), \texttt{speed},
+\texttt{yaw\_rate}, and \texttt{acceleration} are 0 at t=0.
+
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+    \hypertarget{your-code}{%
+\subsection{Your Code!}\label{your-code}}
+
+Complete the functions in the cell below. I recommend completing them in
+the order shown. Use the cells at the end of the notebook to test as you
+go.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{data\PYZus{}list} \PY{o}{=} \PY{n}{process\PYZus{}data}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{trajectory\PYZus{}example.pickle}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{k+kn}{from} \PY{n+nn}{matplotlib} \PY{k}{import} \PY{n}{pyplot} \PY{k}{as} \PY{n}{plt}
+        \PY{k+kn}{from} \PY{n+nn}{math} \PY{k}{import} \PY{n}{pi}\PY{p}{,} \PY{n}{sin}\PY{p}{,} \PY{n}{cos}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        
+        \PY{k}{def} \PY{n+nf}{get\PYZus{}speeds}\PY{p}{(}\PY{n}{data\PYZus{}list}\PY{p}{)}\PY{p}{:}
+            \PY{n}{last\PYZus{}time} \PY{o}{=} \PY{l+m+mf}{0.0}
+            \PY{n}{last\PYZus{}disp} \PY{o}{=} \PY{l+m+mf}{0.0}
+            \PY{n}{speeds}    \PY{o}{=} \PY{p}{[}\PY{l+m+mf}{0.0}\PY{p}{]}
+            
+            \PY{k}{for} \PY{n}{entry} \PY{o+ow}{in} \PY{n}{data\PYZus{}list}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}\PY{p}{:}
+                \PY{n}{time\PYZus{}stamp} \PY{o}{=} \PY{n}{entry}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                \PY{n}{displacement} \PY{o}{=} \PY{n}{entry}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+                \PY{n}{yaw\PYZus{}rate} \PY{o}{=} \PY{n}{entry}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}
+                \PY{n}{accumulation} \PY{o}{=} \PY{n}{entry}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}
+                \PY{c+c1}{\PYZsh{} unpack the entry}
+        \PY{c+c1}{\PYZsh{}         ts, disp, yaw, acc = entry}
+                
+                \PY{c+c1}{\PYZsh{} calculate avg speed for this time interval}
+                \PY{n}{dx} \PY{o}{=} \PY{n}{displacement} \PY{o}{\PYZhy{}} \PY{n}{last\PYZus{}disp}
+                \PY{n}{dt} \PY{o}{=} \PY{n}{time\PYZus{}stamp} \PY{o}{\PYZhy{}} \PY{n}{last\PYZus{}time}
+        \PY{c+c1}{\PYZsh{}         if dt \PYZlt{} 0.0001:}
+        \PY{c+c1}{\PYZsh{}             print(\PYZdq{}error! dt is too small\PYZdq{})}
+        \PY{c+c1}{\PYZsh{}             speeds.append(0.0)}
+        \PY{c+c1}{\PYZsh{}             continue}
+                \PY{n}{v}  \PY{o}{=} \PY{n}{dx} \PY{o}{/} \PY{n}{dt}
+                
+                \PY{c+c1}{\PYZsh{} add to history of speeds}
+                \PY{n}{speeds}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{v}\PY{p}{)}
+                
+                \PY{c+c1}{\PYZsh{} update last\PYZus{}time and last\PYZus{}disp to new vals}
+                \PY{n}{last\PYZus{}time} \PY{o}{=} \PY{n}{time\PYZus{}stamp}
+                \PY{n}{last\PYZus{}disp} \PY{o}{=} \PY{n}{displacement}
+            \PY{k}{return} \PY{n}{speeds}
+         
+           
+        
+        \PY{k}{def} \PY{n+nf}{get\PYZus{}headings}\PY{p}{(}\PY{n}{data\PYZus{}list}\PY{p}{)}\PY{p}{:}
+            \PY{n}{last\PYZus{}time}  \PY{o}{=} \PY{l+m+mf}{0.0}
+            \PY{n}{theta}      \PY{o}{=} \PY{l+m+mf}{0.0}
+            \PY{n}{thetas}     \PY{o}{=} \PY{p}{[}\PY{l+m+mf}{0.0}\PY{p}{]}
+            \PY{k}{for} \PY{n}{entry} \PY{o+ow}{in} \PY{n}{data\PYZus{}list}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}\PY{p}{:}
+                \PY{n}{ts}\PY{p}{,} \PY{n}{disp}\PY{p}{,} \PY{n}{yaw}\PY{p}{,} \PY{n}{acc} \PY{o}{=} \PY{n}{entry}
+                \PY{n}{dt} \PY{o}{=} \PY{n}{ts} \PY{o}{\PYZhy{}} \PY{n}{last\PYZus{}time}
+                \PY{n}{d\PYZus{}theta} \PY{o}{=} \PY{n}{dt} \PY{o}{*} \PY{n}{yaw} 
+                \PY{n}{theta} \PY{o}{+}\PY{o}{=} \PY{n}{d\PYZus{}theta}
+                \PY{n}{theta} \PY{o}{\PYZpc{}}\PY{o}{=} \PY{p}{(}\PY{l+m+mi}{2} \PY{o}{*} \PY{n}{pi}\PY{p}{)}
+                \PY{n}{thetas}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{theta}\PY{p}{)}
+                \PY{n}{last\PYZus{}time} \PY{o}{=} \PY{n}{ts}
+            \PY{k}{return} \PY{n}{thetas}
+        
+        
+        \PY{k}{def} \PY{n+nf}{get\PYZus{}x\PYZus{}y}\PY{p}{(}\PY{n}{data\PYZus{}list}\PY{p}{)}\PY{p}{:}
+            \PY{n}{speeds} \PY{o}{=} \PY{n}{get\PYZus{}speeds}\PY{p}{(}\PY{n}{data\PYZus{}list}\PY{p}{)}
+            \PY{n}{thetas} \PY{o}{=} \PY{n}{get\PYZus{}headings}\PY{p}{(}\PY{n}{data\PYZus{}list}\PY{p}{)}
+            \PY{n}{x} \PY{o}{=} \PY{l+m+mf}{0.0}
+            \PY{n}{y} \PY{o}{=} \PY{l+m+mf}{0.0}
+            \PY{n}{last\PYZus{}time} \PY{o}{=} \PY{l+m+mf}{0.0}
+            \PY{n}{XY} \PY{o}{=} \PY{p}{[}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{)}\PY{p}{]}    
+            \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{data\PYZus{}list}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                \PY{n}{speed} \PY{o}{=} \PY{n}{speeds}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+                \PY{n}{theta} \PY{o}{=} \PY{n}{thetas}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+                \PY{n}{entry} \PY{o}{=} \PY{n}{data\PYZus{}list}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+                \PY{n}{ts}\PY{p}{,} \PY{n}{disp}\PY{p}{,} \PY{n}{yaw}\PY{p}{,} \PY{n}{acc} \PY{o}{=} \PY{n}{entry}
+                \PY{n}{dt} \PY{o}{=} \PY{n}{ts} \PY{o}{\PYZhy{}} \PY{n}{last\PYZus{}time}
+                \PY{n}{D}  \PY{o}{=} \PY{n}{speed} \PY{o}{*} \PY{n}{dt}
+                \PY{n}{dx} \PY{o}{=} \PY{n}{D} \PY{o}{*} \PY{n}{cos}\PY{p}{(}\PY{n}{theta}\PY{p}{)}
+                \PY{n}{dy} \PY{o}{=} \PY{n}{D} \PY{o}{*} \PY{n}{sin}\PY{p}{(}\PY{n}{theta}\PY{p}{)}
+                \PY{n}{x} \PY{o}{+}\PY{o}{=} \PY{n}{dx}
+                \PY{n}{y} \PY{o}{+}\PY{o}{=} \PY{n}{dy}
+                \PY{n}{XY}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{)}\PY{p}{)}
+                \PY{n}{last\PYZus{}time} \PY{o}{=} \PY{n}{ts}
+            \PY{k}{return} \PY{n}{XY}
+           
+        
+        \PY{k}{def} \PY{n+nf}{show\PYZus{}x\PYZus{}y}\PY{p}{(}\PY{n}{data\PYZus{}list}\PY{p}{)}\PY{p}{:}
+            \PY{n}{XY} \PY{o}{=} \PY{n}{get\PYZus{}x\PYZus{}y}\PY{p}{(}\PY{n}{data\PYZus{}list}\PY{p}{)}
+            \PY{n}{headings} \PY{o}{=} \PY{n}{get\PYZus{}headings}\PY{p}{(}\PY{n}{data\PYZus{}list}\PY{p}{)}
+            \PY{n}{X}  \PY{o}{=} \PY{p}{[}\PY{n}{d}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{k}{for} \PY{n}{d} \PY{o+ow}{in} \PY{n}{XY}\PY{p}{]}
+            \PY{n}{Y}  \PY{o}{=} \PY{p}{[}\PY{n}{d}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{k}{for} \PY{n}{d} \PY{o+ow}{in} \PY{n}{XY}\PY{p}{]}
+            \PY{n}{h\PYZus{}x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{n}{headings}\PY{p}{)}
+            \PY{n}{h\PYZus{}y} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{n}{headings}\PY{p}{)}
+            \PY{n}{Q} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{quiver}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{:}\PY{n}{increment}\PY{p}{]}\PY{p}{,}
+                           \PY{n}{Y}\PY{p}{[}\PY{p}{:}\PY{p}{:}\PY{n}{increment}\PY{p}{]}\PY{p}{,}
+                           \PY{n}{h\PYZus{}x}\PY{p}{[}\PY{p}{:}\PY{p}{:}\PY{n}{increment}\PY{p}{]}\PY{p}{,}
+                           \PY{n}{h\PYZus{}y}\PY{p}{[}\PY{p}{:}\PY{p}{:}\PY{n}{increment}\PY{p}{]}\PY{p}{,}
+                           \PY{n}{units}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                           \PY{n}{pivot}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tip}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{qk} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{quiverkey}\PY{p}{(}\PY{n}{Q}\PY{p}{,} \PY{l+m+mf}{0.9}\PY{p}{,} \PY{l+m+mf}{0.9}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}1 }\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{frac}\PY{l+s+si}{\PYZob{}m\PYZcb{}}\PY{l+s+si}{\PYZob{}s\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                               \PY{n}{labelpos}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{E}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{coordinates}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{figure}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{testing}{%
+\subsection{Testing}\label{testing}}
+
+Test your functions by running the cells below.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{k+kn}{from} \PY{n+nn}{testing} \PY{k}{import} \PY{n}{test\PYZus{}get\PYZus{}speeds}\PY{p}{,} \PY{n}{test\PYZus{}get\PYZus{}x\PYZus{}y}\PY{p}{,} \PY{n}{test\PYZus{}get\PYZus{}headings}
+         
+         \PY{n}{test\PYZus{}get\PYZus{}speeds}\PY{p}{(}\PY{n}{get\PYZus{}speeds}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+PASSED test of get\_speeds function!
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{test\PYZus{}get\PYZus{}x\PYZus{}y}\PY{p}{(}\PY{n}{get\PYZus{}x\PYZus{}y}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+PASSED test of get\_x\_y function!
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{test\PYZus{}get\PYZus{}headings}\PY{p}{(}\PY{n}{get\PYZus{}headings}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+PASSED test of get\_headings function!
+
+    \end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
